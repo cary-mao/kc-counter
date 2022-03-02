@@ -37,13 +37,17 @@
 
 <script setup>
 import { Cell, Switch, Picker, Popup } from "vant";
-import { ref, toRaw, toRefs } from "vue";
-import { storeToRefs } from "pinia";
+import { ref, toRaw, toRefs, watch, onUnmounted } from "vue";
+import { onBeforeRouteLeave } from "vue-router";
+// import { storeToRefs } from "pinia";
+import { set as localSet } from "../../data/local";
 import useConfigureStore from "../../stores/configure";
 import TargetPicker from "./picker";
 import TitleBar from "../../components/TitleBar.vue";
 const store = useConfigureStore();
-const { autoSave, cloudSave, illedgeSaveMode, style } = storeToRefs(store);
+const { autoSave, cloudSave, illedgeSaveMode, style } = toRefs(store.$state);
+
+let dataChanged = false;
 
 // let autoSave = ref(false);
 // let cloudSave = ref(false);
@@ -63,53 +67,22 @@ let styles = {
 let popupShow = ref(false);
 let pickerTarget = ref("illedgeSaveMode");
 
-// const illedgeSaveMode = computed(
-//   () => illedgeSaveModes.value[illedgeSaveModeIndex.value]
-// );
+watch(store.$state, () => {
+  dataChanged = true;
+});
 
-// const style = computed(() => stylePickingList.value[stylePickingIndex.value]);
+onUnmounted(() => {
+  alert(1);
+});
 
-// const pickerColumns = computed(() => {
-//   switch (pickerTarget.value) {
-//     case "illedgeSaveMode":
-//       return illedgeSaveModes.value;
-//     case "stylePicking":
-//       return stylePickingList.value;
-//   }
-// });
-
-// const pickerColumnIndex = computed(() => {
-//   switch (pickerTarget.value) {
-//     case "illedgeSaveMode":
-//       return illedgeSaveModeIndex.value;
-//     case "stylePicking":
-//       return stylePickingIndex.value;
-//   }
-// });
-
-// function handlePickerConfirm(value, index) {
-//   let confirmFn = null;
-//   switch (pickerTarget.value) {
-//     case "illedgeSaveMode":
-//       confirmFn = handleIlledgePickerConfirm;
-//       break;
-//     case "stylePicking":
-//       confirmFn = handleStylePickingConfirm;
-//       break;
-//   }
-//   if (confirmFn) {
-//     confirmFn(value, index);
-//   }
-//   togglePopup(false);
-// }
-
-// function handleIlledgePickerConfirm(value, index) {
-//   illedgeSaveModeIndex.value = index;
-// }
-
-// function handleStylePickingConfirm(value, index) {
-//   stylePickingIndex.value = index;
-// }
+onBeforeRouteLeave(() => {
+  if (!dataChanged) return;
+  if (autoSave.value) {
+    console.log(style.value, store.$state);
+    localSet("configure", toRaw(store.$state));
+  } else {
+  }
+});
 
 const targetPicker = new TargetPicker(pickerTarget, {
   illedgeSaveMode: {

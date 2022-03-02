@@ -5,7 +5,7 @@ import Setting from "../pages/setting/index.vue";
 import { createRouter, createWebHashHistory } from "vue-router";
 
 const routes = [
-  { path: "/", redirect: "/setting" },
+  { path: "/", redirect: "/setting", meta: { page: "setting" } },
   { path: "/inventory", component: Inventory },
   { path: "/repository", component: Repository },
   { path: "/setting", component: Setting },

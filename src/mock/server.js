@@ -20,7 +20,7 @@ export function makeServer() {
           {},
           {
             data: {
-              autoSave: false,
+              autoSave: true,
               illedgeSaveMode: "draft",
               cloudSave: false,
               style: "light",

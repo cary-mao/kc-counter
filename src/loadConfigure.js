@@ -13,7 +13,7 @@ async function load() {
     return Promise.resolve(configure);
   } else {
     // load remote data
-    return cloudGet("configure", { params: { k: 1 } }).then((res) => {
+    return cloudGet("configure").then((res) => {
       configure = res.data.data;
       store.registerConfigure(configure);
       return configure;

@@ -9,10 +9,13 @@ export function set(key, val) {
   const type = typeof val;
 
   if (!cache.__keys__) {
-    cache.__keys__ = stoarge.getItem("__keys__") || [];
+    cache.__keys__ = get("__keys__") || [];
   }
 
-  cache.__keys__.push({ key, type });
+  if (cache.__keys__.every((k) => k.key !== key)) {
+    cache.__keys__.push({ key, type });
+  }
+
   storage.setItem("__keys__", JSON.stringify(cache.__keys__));
 
   if (type !== "string") {

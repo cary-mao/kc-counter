@@ -71,14 +71,9 @@ watch(store.$state, () => {
   dataChanged = true;
 });
 
-onUnmounted(() => {
-  alert(1);
-});
-
 onBeforeRouteLeave(() => {
   if (!dataChanged) return;
   if (autoSave.value) {
-    console.log(style.value, store.$state);
     localSet("configure", toRaw(store.$state));
   } else {
   }

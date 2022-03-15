@@ -1,6 +1,6 @@
 <template>
   <div class="">
-    <TitleBar title="库存清点" />
+    <TitleBar title="库存清点" @search="handleSearch" />
     <div class="wrapper page-content">
       <!-- <van-row class="header">
         <Field placeholder="查找商品" className="field" />
@@ -30,6 +30,9 @@
 import { Field, Button, List, Cell, SwipeCell, Stepper } from "vant";
 import TitleBar from "../components/TitleBar.vue";
 import { ref } from "vue";
+import { useRouter } from "vue-router";
+
+const router = useRouter();
 
 const items = ref(
   new Array(21).fill(0).map((v, i) => {
@@ -39,6 +42,11 @@ const items = ref(
     };
   })
 );
+
+function handleSearch() {
+  window.router = router;
+  router.push("/search/inventory");
+}
 </script>
 
 <style lang="stylus" scoped>

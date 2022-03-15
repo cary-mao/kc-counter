@@ -5,4 +5,9 @@ export default {
     },
     set: {},
   },
+  inventory: {
+    get: {
+      url: "api/inventory",
+    },
+  },
 };

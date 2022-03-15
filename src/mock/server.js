@@ -28,6 +28,20 @@ export function makeServer() {
           }
         );
       });
+      this.get("/inventory", () => {
+        return new Response(
+          200,
+          {},
+          {
+            data: new Array(21).fill(0).map((v, i) => {
+              return {
+                name: `item${i}`,
+                count: i,
+              };
+            }),
+          }
+        );
+      });
     },
     // seeds(server) {
     //   server.create("configure", {

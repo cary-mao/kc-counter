@@ -6,7 +6,7 @@ import { makeServer } from "./mock/server";
 import loadConfigure from "./loadConfigure";
 import { createPinia } from "pinia";
 import dynamicSchema from "./plugins/dynamicSchema";
-import "./unload";
+// import "./unload";
 
 if (process.env.NODE_ENV === "development") {
   makeServer();

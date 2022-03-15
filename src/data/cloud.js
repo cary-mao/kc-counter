@@ -8,10 +8,10 @@ const http = axios.create({
   timeout: 1000,
 });
 
-http.interceptors.request.use(
-  () => {},
-  () => {}
-);
+// http.interceptors.request.use(
+//   () => {},
+//   () => {}
+// );
 
 export function request(module, config, mode) {
   const httpModule = httpMap[module];
@@ -35,7 +35,9 @@ export function request(module, config, mode) {
       }
     }
 
-    return axios.request({ ...httpConfig, ...overrideHttpConfig });
+    return http.request({ ...httpConfig, ...overrideHttpConfig });
+  } else {
+    return http.request.apply(http, arguments);
   }
 }
 

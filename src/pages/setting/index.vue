@@ -41,7 +41,7 @@ import { ref, toRaw, toRefs, watch, onUnmounted } from "vue";
 import { onBeforeRouteLeave } from "vue-router";
 // import { storeToRefs } from "pinia";
 import { set as localSet } from "../../data/local";
-import useConfigureStore from "../../stores/configure";
+import useConfigureStore from "../../data/stores/configure";
 import TargetPicker from "./picker";
 import TitleBar from "../../components/TitleBar.vue";
 const store = useConfigureStore();

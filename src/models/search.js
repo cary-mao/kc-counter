@@ -2,7 +2,7 @@ import { get as localGet } from "../data/local";
 import { get as cloudGet } from "../data/cloud";
 import useSearchStore from "../data/stores/search";
 
-const store = useSearchStore();
+// const store = useSearchStore();
 
 export async function* getSearchListGenerater(key, query, count) {
   let end = false;
@@ -31,7 +31,7 @@ export async function* getSearchListGenerater(key, query, count) {
 export function getSearchHistory(key) {
   let history = localGet(`search_${key}`);
   if (history) {
-    return Promise.resolve(history);
+    return Promise.resolve({ data: { data: history } });
   }
   return cloudGet({
     url: "/api/search/history",

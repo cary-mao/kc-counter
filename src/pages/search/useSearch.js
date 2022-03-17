@@ -3,8 +3,12 @@ import { getSearchHistory } from "../../models/search";
 
 export function useSearch(string = "") {
   const searchText = ref(string);
-  const searchHistory = ref(getSearchHistory());
+  const searchHistory = ref([]);
   const tipsFromHistory = ref([]);
+
+  getSearchHistory().then(({ data }) => {
+    searchHistory.value = data.data;
+  });
 
   function handleSearch(value) {
     searchHistory.value.push(value);

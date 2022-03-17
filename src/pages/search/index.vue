@@ -46,7 +46,7 @@ import { useRouter, useRoute } from "vue-router";
 import { useSearch } from "./useSearch";
 import { usePlaceholder } from "./usePlaceholder";
 import { useResult } from "./useResult";
-import useSearchStore from "../../stores/search";
+import useSearchStore from "../../data/stores/search";
 import { toRefs, watch, isRef, reactive } from "vue";
 
 const router = useRouter();

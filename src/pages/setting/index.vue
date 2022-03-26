@@ -1,51 +1,79 @@
 <template>
-  <TitleBar title="配置" :iconHidden="true" />
-  <div class="page-content">
-    <Cell title="自动保存">
-      <template #value>
-        <Switch v-model="autoSave" />
-      </template>
-    </Cell>
-    <Cell
-      title="非规范物品处理方式"
-      @click="togglePopup(true, 'illedgeSaveMode')"
-      v-show="autoSave"
-    >
-      <template #value>
-        <span>{{ illedgeSaveModes[illedgeSaveMode] }}</span>
-        <!-- <Switch v-model="illedgeSaveMode" /> -->
-      </template>
-    </Cell>
-    <Cell title="同步至云">
-      <Switch v-model="cloudSave" />
-    </Cell>
-    <Cell title="样式选择" @click="togglePopup(true, 'stylePicking')">
-      <template #value>
-        <span>{{ styles[style] }}</span>
-      </template>
-    </Cell>
+  <div class="page">
+    <TitleBar title="配置" :iconHidden="true" hasBackArrow @back="handleBack" />
+    <div class="">
+      <CellGroup class="cell-group">
+        <Cell title="自动保存" center size="large">
+          <template #value>
+            <Switch v-model="autoSave" />
+          </template>
+        </Cell>
+        <Cell
+          title="非规范物品处理方式"
+          @click="togglePopup(true, 'illedgeSaveMode')"
+          v-show="autoSave"
+          size="large"
+          center
+        >
+          <template #value>
+            <span>{{ illedgeSaveModes[illedgeSaveMode] }}</span>
+            <!-- <Switch v-model="illedgeSaveMode" /> -->
+          </template>
+        </Cell>
+      </CellGroup>
+      <CellGroup class="cell-group">
+        <Cell title="同步至云" center size="large">
+          <Switch v-model="cloudSave" />
+        </Cell>
+      </CellGroup>
+      <CellGroup class="cell-group"
+        ><Cell
+          title="样式选择"
+          @click="togglePopup(true, 'stylePicking')"
+          center
+          size="large"
+        >
+          <template #value>
+            <span>{{ styles[style] }}</span>
+          </template>
+        </Cell>
+      </CellGroup>
+      <CellGroup class="cell-group">
+        <Cell
+          title="退出"
+          size="large"
+          center
+          clickable
+          @click="handleLogoutClick"
+          style="text-align: center"
+        ></Cell>
+      </CellGroup>
+    </div>
+    <Popup v-model:show="popupShow" position="bottom"
+      ><Picker
+        :title="targetPicker.title.value"
+        :columns="targetPicker.columns.value"
+        :default-index="targetPicker.index.value"
+        @cancel="togglePopup(false)"
+        @confirm="targetPicker.handleConfirm"
+    /></Popup>
   </div>
-  <Popup v-model:show="popupShow" position="bottom"
-    ><Picker
-      :title="targetPicker.title.value"
-      :columns="targetPicker.columns.value"
-      :default-index="targetPicker.index.value"
-      @cancel="togglePopup(false)"
-      @confirm="targetPicker.handleConfirm"
-  /></Popup>
 </template>
 
 <script setup>
-import { Cell, Switch, Picker, Popup } from "vant";
+import { Cell, CellGroup, Switch, Picker, Popup } from "vant";
 import { ref, toRaw, toRefs, watch, onUnmounted } from "vue";
-import { onBeforeRouteLeave } from "vue-router";
+import { onBeforeRouteLeave, useRouter } from "vue-router";
 // import { storeToRefs } from "pinia";
 import { set as localSet } from "../../data/local";
 import useConfigureStore from "../../data/stores/configure";
 import TargetPicker from "./picker";
 import TitleBar from "../../components/TitleBar.vue";
+import { logout } from "../../models/user";
+import caches from "../../data/cache";
 const store = useConfigureStore();
 const { autoSave, cloudSave, illedgeSaveMode, style } = toRefs(store.$state);
+const router = useRouter();
 
 let dataChanged = false;
 
@@ -62,6 +90,11 @@ let illedgeSaveModes = {
 let styles = {
   light: "日间模式",
   night: "夜间模式",
+};
+
+let logoutList = {
+  logout: "退出登陆",
+  cancel: "取消",
 };
 // let stylePickingIndex = ref(0);
 let popupShow = ref(false);
@@ -108,7 +141,15 @@ function togglePopup(open, target) {
     pickerTarget.value = target;
   }
 }
+
+function handleLogoutClick() {
+  logout().catch(console.log);
+}
+
+function handleBack() {
+  caches.back = true;
+  router.back();
+}
 </script>
 
-<style>
-</style>
+<style lang="stylus" scoped></style>

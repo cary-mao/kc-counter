@@ -1,6 +1,6 @@
 <template>
-  <TitleBar title="仓库" />
-  <div class="page-content">
+  <div class="page">
+    <TitleBar title="仓库" />
     <Tabs v-model="active" sticky offset-top="12.26667vw">
       <Tab title="库存列表" className="tab">
         <List style="width: 100%">
@@ -55,21 +55,26 @@ const items = ref(
   margin-right: 10px;
 }
 
-.tab {
-  padding-top: 10px;
-}
-
 .item {
   // display: flex;
   // justify-content: space-between;
   // align-items: center;
   padding: 10px 20px;
-  margin-bottom: 10px;
-  border-bottom: 1px solid var(--van-gray-4);
+  // border-bottom: 1px solid var(--van-gray-4);
+  background-color: var(--van-white);
 
   // background-color: var(--van-gray-2);
   &-cell {
     padding: 0;
+    margin-bottom: 10px;
+
+    &:first-child {
+      margin-top: 10px;
+    }
+
+    &:nth-last-child(2) {
+      margin-bottom: 0;
+    }
   }
 
   &-hori {

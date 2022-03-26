@@ -1,4 +1,5 @@
 import { createServer, Response, JSONAPISerializer } from "miragejs";
+import { users, login, logout, usersSeeds } from "./user";
 
 // const AxiosGeneralSerializer = Serializer.extend({
 //   root: false,
@@ -12,6 +13,9 @@ export function makeServer() {
     // models: {
     //   configure: Model,
     // },
+    models: {
+      users,
+    },
     routes() {
       this.namespace = "api";
       this.get("/configure", () => {
@@ -42,6 +46,12 @@ export function makeServer() {
           }
         );
       });
+      this.get("/search/history", () => {});
+      this.post("/login", login);
+      this.post("/logout", logout);
+    },
+    seeds(server) {
+      usersSeeds(server);
     },
     // seeds(server) {
     //   server.create("configure", {

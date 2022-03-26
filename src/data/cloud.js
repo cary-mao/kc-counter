@@ -45,6 +45,6 @@ export function get(module, config = {}) {
   return request(module, config, "get");
 }
 
-export function set(module, config = {}) {
-  return request(module, config, "set");
+export function post(module, config = {}) {
+  return request(module, config, "post");
 }

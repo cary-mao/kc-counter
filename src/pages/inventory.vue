@@ -1,28 +1,26 @@
 <template>
-  <div class="">
+  <div class="page">
     <TitleBar title="库存清点" @search="handleSearch" />
-    <div class="wrapper page-content">
-      <!-- <van-row class="header">
+    <!-- <van-row class="header">
         <Field placeholder="查找商品" className="field" />
         <Button icon="plus" size="small" type="primary" square>添加</Button>
       </van-row> -->
-      <van-row class="main">
-        <List style="width: 100%">
-          <SwipeCell v-for="item in items" :key="item">
-            <div class="item">
-              <span>{{ item.name }}</span>
-              <div class="count-box">
-                <Stepper v-model="item.count" integer min="0" />
-              </div>
+    <van-row class="main">
+      <List style="width: 100%">
+        <SwipeCell class="item-cell" v-for="item in items" :key="item">
+          <div class="item">
+            <span>{{ item.name }}</span>
+            <div class="count-box">
+              <Stepper v-model="item.count" integer min="0" />
             </div>
-            <template #right>
-              <Button square type="danger" text="删除" />
-              <Button square type="primary" text="收藏" />
-            </template>
-          </SwipeCell>
-        </List>
-      </van-row>
-    </div>
+          </div>
+          <template #right>
+            <Button square type="danger" text="删除" />
+            <Button square type="primary" text="收藏" />
+          </template>
+        </SwipeCell>
+      </List>
+    </van-row>
   </div>
 </template>
 
@@ -75,7 +73,18 @@ function handleSearch() {
   justify-content: space-between;
   align-items: center;
   padding: 10px 20px;
-  margin-bottom: 10px;
-  border-bottom: var(--van-gray-4) 1px solid;
+  background-color: var(--van-white);
+
+  &-cell {
+    margin-bottom: 10px;
+
+    &:first-child {
+      margin-top: 10px;
+    }
+
+    &:nth-last-child(2) {
+      margin-bottom: 0;
+    }
+  }
 }
 </style>

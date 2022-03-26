@@ -1,5 +1,5 @@
 <template>
-  <div class="">
+  <div class="page">
     <Search
       v-model="searchText"
       :placeholder="placeholder"

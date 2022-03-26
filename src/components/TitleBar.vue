@@ -1,5 +1,11 @@
 <template>
-  <NavBar :title="title" placeholder fixed>
+  <NavBar
+    :title="title"
+    placeholder
+    fixed
+    :left-arrow="hasBackArrow"
+    @click="handleClickLeft"
+  >
     <template #right v-if="!iconHidden">
       <van-icon
         name="search"
@@ -22,9 +28,16 @@ import { NavBar } from "vant";
 
 export default {
   name: "TitleBar",
-  props: ["title", "iconHidden"],
-  emits: ["search", "more"],
+  props: ["title", "iconHidden", "hasBackArrow"],
+  emits: ["search", "more", "back"],
   components: { NavBar },
+  setup(props, context) {
+    return {
+      handleClickLeft() {
+        context.emit("back");
+      },
+    };
+  },
 };
 </script>
 

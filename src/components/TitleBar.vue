@@ -13,7 +13,19 @@
         class="navbar-icon"
         @click="$emit('search')"
       />
+      <Popover
+        v-if="morePopover"
+        v-model:show="showMorePopover"
+        :actions="moreActions"
+        placement="bottom-end"
+        @select="handleMoreSelect"
+      >
+        <template #reference>
+          <van-icon name="add-o" size="1.4rem" class="navbar-icon" />
+        </template>
+      </Popover>
       <van-icon
+        v-else
         name="add-o"
         size="1.4rem"
         class="navbar-icon"
@@ -24,17 +36,22 @@
 </template>
 
 <script>
-import { NavBar } from "vant";
+import { NavBar, Popover } from "vant";
+import { ref } from "vue";
 
 export default {
   name: "TitleBar",
-  props: ["title", "iconHidden", "hasBackArrow"],
-  emits: ["search", "more", "back"],
-  components: { NavBar },
+  props: ["title", "iconHidden", "hasBackArrow", "morePopover", "moreActions"],
+  emits: ["search", "more", "back", "moreSelect"],
+  components: { NavBar, Popover },
   setup(props, context) {
     return {
+      showMorePopover: ref(false),
       handleClickLeft() {
         context.emit("back");
+      },
+      handleMoreSelect(action, index) {
+        context.emit("moreSelect", action, index);
       },
     };
   },

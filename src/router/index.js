@@ -1,9 +1,11 @@
-import Inventory from "../pages/inventory.vue";
+import Inventory from "../pages/inventory/index.vue";
 import Repository from "../pages/repository.vue";
 import Setting from "../pages/setting/index.vue";
 import Search from "../pages/search/index.vue";
 import Login from "../pages/login.vue";
 import Me from "../pages/me.vue";
+
+import InventoryTaskAddition from "../pages/inventory/TaskAddition.vue";
 
 import { createRouter, createWebHashHistory } from "vue-router";
 import cache from "../data/cache";
@@ -18,6 +20,11 @@ const routes = [
     name: "inventory",
     component: Inventory,
     meta: { tab: true },
+  },
+  {
+    path: "/inventory/addition",
+    name: "inventoryAddition",
+    component: InventoryTaskAddition,
   },
   {
     path: "/repository",

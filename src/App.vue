@@ -40,9 +40,10 @@ const isShowTabbar = computed(() => {
 <style>
 .page {
   width: 100%;
+  /* overflow: auto; */
 }
 .view-wrap {
-  /* width: 200%; */
+  width: 200%;
   flex: 1;
 }
 .cell-group {
@@ -59,7 +60,7 @@ const isShowTabbar = computed(() => {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   color: #2c3e50;
-  overflow: hidden;
+  overflow: auto;
   position: relative;
 
   display: flex;

@@ -96,7 +96,7 @@ const items = ref(
 
 const noDeleteConfirm = ref(false);
 
-const deleteConfirmDialogShow = ref(true);
+const deleteConfirmDialogShow = ref(false);
 
 function handleDeleteCancel() {
   deleteConfirmDialogShow.value = false;

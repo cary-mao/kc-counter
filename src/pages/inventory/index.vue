@@ -43,16 +43,68 @@
         </SwipeCell>
       </List>
     </van-row>
+    <VanDialog
+      v-model:show="deleteConfirmDialogShow"
+      title="删除任务"
+      show-cancel-button
+      @cancel="handleDeleteCancel"
+      @confirm="handleDeleteConfirm"
+    >
+      <div class="van-dialog__message van-dialog__message--has-title">
+        <p>任务删除后无法恢复，是否确认删除？</p>
+        <Checkbox
+          v-model="noDeleteConfirm"
+          shape="square"
+          style="margin-left: 1.1rem"
+          >本次使用不再提示</Checkbox
+        >
+      </div>
+    </VanDialog>
   </div>
 </template>
-
+// van-dialog__content
 <script setup>
-import { Field, Button, List, Cell, SwipeCell, Stepper, Popover } from "vant";
+import {
+  Field,
+  Button,
+  List,
+  Cell,
+  SwipeCell,
+  Stepper,
+  Popover,
+  Dialog,
+  Checkbox,
+} from "vant";
 import TitleBar from "../../components/TitleBar.vue";
 import { ref, unref } from "vue";
 import { useRouter } from "vue-router";
 
+const VanDialog = Dialog.Component;
+
 const router = useRouter();
+
+let deletingIndex = -1;
+
+const items = ref(
+  new Array(21).fill(0).map((v, i) => {
+    return {
+      name: `item${i}`,
+      count: i,
+    };
+  })
+);
+
+const noDeleteConfirm = ref(false);
+
+const deleteConfirmDialogShow = ref(true);
+
+function handleDeleteCancel() {
+  deleteConfirmDialogShow.value = false;
+}
+
+function handleDeleteConfirm() {
+  if (deletingIndex >= 0) unref(items).splice(deletingIndex, 1);
+}
 
 const moreActions = ref([
   { text: "新增", action: "add" },
@@ -66,17 +118,13 @@ function handleMoreSelect(item, index) {
   }
 }
 
-const items = ref(
-  new Array(21).fill(0).map((v, i) => {
-    return {
-      name: `item${i}`,
-      count: i,
-    };
-  })
-);
-
 function handleItemDelete(index) {
-  unref(items).splice(index, 1);
+  deletingIndex = index;
+  if (noDeleteConfirm.value) {
+    handleDeleteConfirm();
+  } else {
+    deleteConfirmDialogShow.value = true;
+  }
 }
 
 function handleItemCertain(index, item) {

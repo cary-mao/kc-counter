@@ -52,7 +52,7 @@ export function login(schema, request) {
       400,
       {},
       {
-        message: "fail",
+        message: "fail: user is not existed.",
         code: -1,
       }
     );

@@ -43,6 +43,10 @@ const router = createRouter({
 });
 
 router.afterEach((to, from) => {
+  routeTransition(to, from);
+});
+
+function routeTransition(to, from) {
   if (firstRoute) {
     firstRoute = false;
     setTransitionName();
@@ -66,6 +70,6 @@ router.afterEach((to, from) => {
   function setTransitionName(name) {
     from.meta.transition = to.meta.transition = name;
   }
-});
+}
 
 export default router;

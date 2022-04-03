@@ -1,7 +1,7 @@
 <template>
   <div class="page">
     <h1>KC Counter</h1>
-    <Form @submit="onSubmit" @failed="onFail">
+    <Form @submit="onSubmit" @failed="onFailed">
       <CellGroup inset>
         <Field
           v-model="username"
@@ -32,7 +32,7 @@
 </template>
 
 <script setup>
-import { Form, CellGroup, Field, Button } from "vant";
+import { Form, CellGroup, Field, Button, Toast } from "vant";
 import { ref } from "vue";
 import { useRouter } from "vue-router";
 import { login } from "../models/user";
@@ -42,11 +42,26 @@ const router = useRouter();
 const username = ref("super");
 const password = ref("super");
 const onSubmit = (values) => {
-  login(values.username, values.password).then((res) => {
-    router.push("/inventory");
+  Toast.loading({
+    message: "正在登陆",
+    forbidClick: true,
+    duration: 0,
   });
+  login(values.username, values.password)
+    .then((res) => {
+      Toast.clear();
+      setTimeout(() => {
+        router.push("/inventory");
+      }, 500);
+    })
+    .catch((err) => {
+      Toast.fail(err.message);
+    });
 };
-const onFail = console.log;
+
+function onFailed() {
+  console.log(arguments);
+}
 </script>
 
 <style lang="stylus" scoped>

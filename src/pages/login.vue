@@ -42,14 +42,8 @@ const router = useRouter();
 const username = ref("super");
 const password = ref("super");
 const onSubmit = (values) => {
-  Toast.loading({
-    message: "正在登陆",
-    forbidClick: true,
-    duration: 0,
-  });
   login(values.username, values.password)
     .then((res) => {
-      Toast.clear();
       setTimeout(() => {
         router.push("/inventory");
       }, 500);

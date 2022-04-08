@@ -22,12 +22,16 @@ export function setup(
   };
 }
 
-export function loading(tag, ...args) {
-  map[tag].apply(null, args);
+export function loading(tag, args) {
+  const fn = map[tag] ? map[tag].loadingFn : defaultLoadingFn;
+
+  fn.apply(null, args);
 }
 
-export function close(tag) {
-  map[tag].apply(null, args);
+export function close(tag, args) {
+  const fn = map[tag] ? map[tag].closeFn : defaultCloseFn;
+
+  fn.apply(null, args);
 }
 
 function defaultLoadingFn(message, opts) {

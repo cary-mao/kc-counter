@@ -61,7 +61,7 @@
 </template>
 
 <script setup>
-import { Cell, CellGroup, Switch, Picker, Popup } from "vant";
+import { Cell, CellGroup, Switch, Picker, Popup, Toast, Dialog } from "vant";
 import { ref, toRaw, toRefs, watch, onUnmounted } from "vue";
 import { onBeforeRouteLeave, useRouter } from "vue-router";
 // import { storeToRefs } from "pinia";
@@ -143,7 +143,16 @@ function togglePopup(open, target) {
 }
 
 function handleLogoutClick() {
-  logout().catch(console.log);
+  Dialog.confirm({
+    message: "确定退出账号吗？",
+  })
+    .then(() => {
+      return logout();
+    })
+    .catch(() => {})
+    .finally(() => {
+      Toast.success("退出成功");
+    });
 }
 
 function handleBack() {

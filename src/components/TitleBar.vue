@@ -8,10 +8,11 @@
   >
     <template #right v-if="!iconHidden">
       <van-icon
-        name="search"
+        name="tool"
         size="1.4rem"
+        class-prefix="iconfont"
         class="navbar-icon"
-        @click="$emit('search')"
+        @click="$emit('filter')"
       />
       <Popover
         v-if="morePopover"
@@ -42,7 +43,7 @@ import { ref } from "vue";
 export default {
   name: "TitleBar",
   props: ["title", "iconHidden", "hasBackArrow", "morePopover", "moreActions"],
-  emits: ["search", "more", "back", "moreSelect"],
+  emits: ["filter", "more", "back", "moreSelect"],
   components: { NavBar, Popover },
   setup(props, context) {
     return {

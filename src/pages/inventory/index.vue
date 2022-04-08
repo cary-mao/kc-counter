@@ -4,13 +4,33 @@
       title="库存清点"
       :moreActions="moreActions"
       :morePopover="true"
-      @search="handleSearch"
+      @filter="handleFilter"
       @moreSelect="handleMoreSelect"
     />
     <!-- <van-row class="header">
         <Field placeholder="查找商品" className="field" />
         <Button icon="plus" size="small" type="primary" square>添加</Button>
       </van-row> -->
+    <transition name="van-slide-down"
+      ><div
+        class="van-tabbar__placeholder"
+        style="height: 40px"
+        v-show="toolShow"
+      >
+        <div class="van-nav-bar van-nav-bar--fixed" style="top: unset">
+          <div class="van-nav-bar__content" style="overflow: auto">
+            <van-icon
+              :name="toolAction.icon"
+              :class-prefix="toolAction.classPrefix || 'iconfont'"
+              class="tool-icon"
+              v-for="toolAction in toolActions"
+              :key="toolAction.name"
+              @click="toolAction.fn"
+            ></van-icon>
+          </div>
+        </div></div
+    ></transition>
+
     <van-row class="main">
       <List style="width: 100%">
         <SwipeCell class="item-cell" v-for="(item, index) in items" :key="item">
@@ -78,12 +98,21 @@ import {
 import TitleBar from "../../components/TitleBar.vue";
 import { ref, unref } from "vue";
 import { useRouter } from "vue-router";
+import { useToolActions } from "./useTools";
+
+const toolActions = useToolActions();
 
 const VanDialog = Dialog.Component;
 
 const router = useRouter();
 
 let deletingIndex = -1;
+
+function handleToolClick() {
+  console.log(arguments);
+}
+
+const toolShow = ref(false);
 
 const items = ref(
   new Array(21).fill(0).map((v, i) => {
@@ -107,9 +136,8 @@ function handleDeleteConfirm() {
 }
 
 const moreActions = ref([
-  { text: "新增", action: "add" },
-  // { text: "选项二" },
-  // { text: "选项三" },
+  { text: "新增", action: "add", icon: "add-o" },
+  { text: "筛选", action: "filter", icon: "filter-o" },
 ]);
 
 function handleMoreSelect(item, index) {
@@ -132,9 +160,8 @@ function handleItemCertain(index, item) {
   item.lock = !lock;
 }
 
-function handleSearch() {
-  window.router = router;
-  router.push("/search/inventory");
+function handleFilter() {
+  toolShow.value = !toolShow.value;
 }
 </script>
 
@@ -177,5 +204,11 @@ function handleSearch() {
       margin-bottom: 0;
     }
   }
+}
+
+.tool-icon {
+  color: var(--van-black-2);
+  font-size: 1.4rem;
+  margin-left: 14px;
 }
 </style>

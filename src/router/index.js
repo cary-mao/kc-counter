@@ -1,7 +1,6 @@
 import Inventory from "../pages/inventory/index.vue";
 import Repository from "../pages/repository.vue";
 import Setting from "../pages/setting/index.vue";
-import Search from "../pages/search/index.vue";
 import Login from "../pages/login.vue";
 import Me from "../pages/me.vue";
 
@@ -14,7 +13,6 @@ let firstRoute = true;
 
 const routes = [
   { path: "/", redirect: "/login" },
-  { path: "/search/:type", name: "search", component: Search },
   {
     path: "/inventory",
     name: "inventory",

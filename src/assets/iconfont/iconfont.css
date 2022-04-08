@@ -1,0 +1,70 @@
+@font-face {
+  font-family: "iconfont"; /* Project id 3123459 */
+  src: url("./iconfont.woff2?t=1649411118527") format("woff2"),
+    url("./iconfont.woff?t=1649411118527") format("woff"),
+    url("./iconfont.ttf?t=1649411118527") format("truetype");
+}
+
+.iconfont {
+  font-family: "iconfont" !important;
+  font-size: 16px;
+  font-style: normal;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.iconfont-draft1:before {
+  content: "\e605";
+}
+
+.iconfont-upload:before {
+  content: "\e656";
+}
+
+.iconfont-save1:before {
+  content: "\e762";
+}
+
+.iconfont-createtask:before {
+  content: "\e6ef";
+}
+
+.iconfont-search:before {
+  content: "\e6e1";
+}
+
+.iconfont-tool:before {
+  content: "\e769";
+}
+
+.iconfont-addto:before {
+  content: "\e698";
+}
+
+.iconfont-quanxuan:before {
+  content: "\ee33";
+}
+
+.iconfont-shaixuan_o:before {
+  content: "\eb4c";
+}
+
+.iconfont-bianji:before {
+  content: "\eabd";
+}
+
+.iconfont-daochu:before {
+  content: "\eabf";
+}
+
+.iconfont-daoru:before {
+  content: "\eac0";
+}
+
+.iconfont-lishijilu:before {
+  content: "\eaf8";
+}
+
+.iconfont-shanchu:before {
+  content: "\eafb";
+}

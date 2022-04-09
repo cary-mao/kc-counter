@@ -31,7 +31,7 @@ const isShowTabbar = computed(() => {
     v-show="isShowTabbar"
   >
     <TabbarItem to="/inventory" icon="notes-o">清点</TabbarItem>
-    <TabbarItem to="/repository" icon="points">仓库</TabbarItem>
+    <!-- <TabbarItem to="/repository" icon="points">仓库</TabbarItem> -->
     <!-- <TabbarItem to="/setting" icon="setting-o">配置</TabbarItem> -->
     <TabbarItem to="/me" icon="user-o">我</TabbarItem>
   </Tabbar>

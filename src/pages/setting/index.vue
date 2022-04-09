@@ -8,7 +8,7 @@
             <Switch v-model="autoSave" />
           </template>
         </Cell>
-        <Cell
+        <!-- <Cell
           title="非规范物品处理方式"
           @click="togglePopup(true, 'illedgeSaveMode')"
           v-show="autoSave"
@@ -17,9 +17,9 @@
         >
           <template #value>
             <span>{{ illedgeSaveModes[illedgeSaveMode] }}</span>
-            <!-- <Switch v-model="illedgeSaveMode" /> -->
+            <Switch v-model="illedgeSaveMode" />
           </template>
-        </Cell>
+        </Cell> -->
       </CellGroup>
       <CellGroup class="cell-group">
         <Cell title="同步至云" center size="large">
@@ -80,11 +80,11 @@ let dataChanged = false;
 // let autoSave = ref(false);
 // let cloudSave = ref(false);
 // let illedgeSaveModes = ref(["ignore", "draft", "apply"]);
-let illedgeSaveModes = {
-  ignore: "忽略",
-  draft: "草稿",
-  apply: "申请",
-};
+// let illedgeSaveModes = {
+//   ignore: "忽略",
+//   draft: "草稿",
+//   apply: "申请",
+// };
 // let illedgeSaveModeIndex = ref(1);
 // let stylePickingList = ref(["light", "night"]);
 let styles = {
@@ -113,11 +113,11 @@ onBeforeRouteLeave(() => {
 });
 
 const targetPicker = new TargetPicker(pickerTarget, {
-  illedgeSaveMode: {
-    picked: illedgeSaveMode,
-    options: illedgeSaveModes,
-    title: "处理模式",
-  },
+  // illedgeSaveMode: {
+  //   picked: illedgeSaveMode,
+  //   options: illedgeSaveModes,
+  //   title: "处理模式",
+  // },
   stylePicking: {
     picked: style,
     options: styles,

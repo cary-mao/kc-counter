@@ -9,7 +9,6 @@
     <template #right v-if="!iconHidden">
       <van-icon
         name="tool"
-        size="1.4rem"
         class-prefix="iconfont"
         class="navbar-icon"
         @click="$emit('filter')"
@@ -19,16 +18,16 @@
         v-model:show="showMorePopover"
         :actions="moreActions"
         placement="bottom-end"
+        icon-prefix="iconfont"
         @select="handleMoreSelect"
       >
         <template #reference>
-          <van-icon name="add-o" size="1.4rem" class="navbar-icon" />
+          <van-icon class-prefix="iconfont" name="addto" class="navbar-icon" />
         </template>
       </Popover>
       <van-icon
         v-else
         name="add-o"
-        size="1.4rem"
         class="navbar-icon"
         @click="$emit('more')"
       />
@@ -61,6 +60,7 @@ export default {
 
 <style lang="stylus" scoped>
 .navbar-icon {
+  font-size: 1.4rem;
   margin-right: 10px;
   color: var(--van-black-2);
 }

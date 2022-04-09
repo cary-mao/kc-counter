@@ -99,6 +99,11 @@ import TitleBar from "../../components/TitleBar.vue";
 import { ref, unref } from "vue";
 import { useRouter } from "vue-router";
 import { useToolActions } from "./useTools";
+import { useMoreActions, useMoreMenuSelectHandle } from "./useMoreMenu";
+
+const moreActions = useMoreActions();
+
+const handleMoreSelect = useMoreMenuSelectHandle();
 
 const toolActions = useToolActions();
 
@@ -133,17 +138,6 @@ function handleDeleteCancel() {
 
 function handleDeleteConfirm() {
   if (deletingIndex >= 0) unref(items).splice(deletingIndex, 1);
-}
-
-const moreActions = ref([
-  { text: "新增", action: "add", icon: "add-o" },
-  { text: "筛选", action: "filter", icon: "filter-o" },
-]);
-
-function handleMoreSelect(item, index) {
-  if (item.action === "add") {
-    router.push("/inventory/addition");
-  }
 }
 
 function handleItemDelete(index) {

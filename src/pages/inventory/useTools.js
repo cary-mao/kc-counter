@@ -1,21 +1,48 @@
 import { ref } from "vue";
+import { useRouter } from "vue-router";
 
 export function useToolActions() {
+  const router = useRouter();
+
   return ref([
     {
-      name: "createTask",
-      icon: "createtask",
+      name: "addto",
+      icon: "addto",
       fn() {
-        console.log("createTask");
+        router.push("/inventory/addition");
       },
     },
     {
       name: "save",
       icon: "save1",
     },
+    // {
+    //   name: "selectAll",
+    //   icon: "quanxuan",
+    // },
     {
-      name: "selectAll",
-      icon: "quanxuan",
+      name: "undo",
+      icon: "undo",
+    },
+    {
+      name: "redo",
+      icon: "redo",
+    },
+    {
+      name: "history",
+      icon: "lishijilu",
+    },
+    {
+      name: "filter",
+      icon: "shaixuan_o",
+    },
+    {
+      name: "search",
+      icon: "search",
+    },
+    {
+      name: "upload",
+      icon: "upload",
     },
   ]);
 }

@@ -13,8 +13,8 @@ export function useMoreMenuSelectHandle() {
 
   return function (item, index) {
     switch (item.action) {
-      case "add":
-        router.push("/inventory/addition");
+      case "task":
+        router.push("/inventory/list");
         break;
       case "filter":
         break;

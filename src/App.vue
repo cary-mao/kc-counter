@@ -8,8 +8,7 @@ import { computed, ref, unref } from "vue";
 const active = ref(0);
 const isShowTabbar = computed(() => {
   const route = router.currentRoute;
-  const name = unref(route).name;
-  return ["inventory", "repository", "me"].includes(name);
+  return unref(route).meta.tab;
 });
 </script>
 
@@ -30,7 +29,7 @@ const isShowTabbar = computed(() => {
     route
     v-show="isShowTabbar"
   >
-    <TabbarItem to="/inventory" icon="notes-o">清点</TabbarItem>
+    <TabbarItem to="/inventory/list" icon="notes-o">清点</TabbarItem>
     <!-- <TabbarItem to="/repository" icon="points">仓库</TabbarItem> -->
     <!-- <TabbarItem to="/setting" icon="setting-o">配置</TabbarItem> -->
     <TabbarItem to="/me" icon="user-o">我</TabbarItem>

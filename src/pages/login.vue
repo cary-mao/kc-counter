@@ -45,7 +45,7 @@ const onSubmit = (values) => {
   login(values.username, values.password)
     .then((res) => {
       setTimeout(() => {
-        router.push("/inventory");
+        router.push("/inventory/list");
       }, 500);
     })
     .catch((err) => {

@@ -15,10 +15,9 @@ let firstRoute = true;
 const routes = [
   { path: "/", redirect: "/login" },
   {
-    path: "/inventory",
+    path: "/inventory/:id",
     name: "inventory",
     component: Inventory,
-    meta: { tab: true },
   },
   {
     path: "/inventory/addition",
@@ -29,6 +28,7 @@ const routes = [
     path: "/inventory/list",
     name: "inventoryList",
     component: InventoryList,
+    meta: { tab: true },
   },
   // {
   //   path: "/repository",

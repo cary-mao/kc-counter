@@ -9,6 +9,14 @@ export default defineConfig({
     jsxFragment: "Fragment",
     jsxInject: "import { h } from 'vue';",
   },
+  build: {
+    rollupOptions: {
+      input: {
+        client: "./client/main.js",
+        // server: "./server/main.js",
+      },
+    },
+  },
   plugins: [
     vue(),
     createStyleImportPlugin({

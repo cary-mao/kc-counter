@@ -2,10 +2,12 @@
   <div class="page">
     <TitleBar
       title="库存清点"
+      :hasBackArrow="true"
       :moreActions="moreActions"
       :morePopover="true"
       @filter="handleFilter"
       @moreSelect="handleMoreSelect"
+      @back="handleBack"
     />
     <!-- <van-row class="header">
         <Field placeholder="查找商品" className="field" />
@@ -100,6 +102,7 @@ import { ref, unref } from "vue";
 import { useRouter } from "vue-router";
 import { useToolActions } from "./useTools";
 import { useMoreActions, useMoreMenuSelectHandle } from "./useMoreMenu";
+import cache from "../../data/cache";
 
 const moreActions = useMoreActions();
 
@@ -115,6 +118,11 @@ let deletingIndex = -1;
 
 function handleToolClick() {
   console.log(arguments);
+}
+
+function handleBack() {
+  cache.back = true;
+  router.back();
 }
 
 const toolShow = ref(false);

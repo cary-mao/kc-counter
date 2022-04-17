@@ -4,7 +4,7 @@
     placeholder
     fixed
     :left-arrow="hasBackArrow"
-    @click="handleClickLeft"
+    @click-left="handleClickLeft"
   >
     <template #right v-if="!iconHidden">
       <van-icon

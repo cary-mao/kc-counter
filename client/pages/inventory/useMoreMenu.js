@@ -3,7 +3,7 @@ import { useRouter } from "vue-router";
 
 export function useMoreActions() {
   return ref([
-    { text: "清单", action: "task", icon: "createtask" },
+    { text: "添加物品", action: "add", icon: "addto" },
     { text: "提交", action: "upload", icon: "upload" },
   ]);
 }
@@ -13,8 +13,8 @@ export function useMoreMenuSelectHandle() {
 
   return function (item, index) {
     switch (item.action) {
-      case "task":
-        router.push("/inventory/list");
+      case "add":
+        router.push("/inventory/goodsAddition");
         break;
       case "filter":
         break;

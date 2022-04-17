@@ -1,12 +1,16 @@
 <template>
   <div class="page">
     <TitleBar
-      title="新建清点任务"
+      title="新建物品"
       :iconHidden="true"
       :hasBackArrow="true"
       @back="handleBack"
     />
-    <NoticeBar left-icon="warning-o" :scrollable="false" :wrapable="true"
+    <NoticeBar
+      v-if="!isInTypes"
+      left-icon="warning-o"
+      :scrollable="false"
+      :wrapable="true"
       >当前物品不在仓库物品表，请注意确认是否新增该物品类型！</NoticeBar
     >
     <Form class="form" @submit="handleSubmit">
@@ -16,11 +20,11 @@
         name="name"
         error
         required
-        label="任务名称"
+        label="物品名称"
       ></Field>
 
       <Cell
-        title="物品"
+        title="物品类型"
         center
         title-class="van-field__label van-field__label--required"
       >
@@ -50,7 +54,7 @@
       </Cell>
       <Field name="newgood" label="新增物品">
         <template #input>
-          <Switch v-model="formData.newgood" />
+          <Switch v-model="formData.newgood" :disabled="isInTypes" />
         </template>
       </Field>
       <Field name="draft" label="保存为草稿">
@@ -98,6 +102,8 @@ import cache from "../../data/cache";
 
 const router = useRouter();
 
+const isInTypes = ref(true);
+
 const formData = reactive({
   name: "",
   count: 0,
@@ -105,7 +111,7 @@ const formData = reactive({
   desc: "",
   good: "g1",
   goodTip: "",
-  newgood: true,
+  newgood: false,
   draft: false,
 });
 

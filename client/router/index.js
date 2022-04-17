@@ -4,7 +4,7 @@ import Setting from "../pages/setting/index.vue";
 import Login from "../pages/login.vue";
 import Me from "../pages/me.vue";
 
-import InventoryTaskAddition from "../pages/inventory/TaskAddition.vue";
+import InventoryGoodsAddition from "../pages/inventory/GoodsAddition.vue";
 import InventoryList from "../pages/inventory/list.vue";
 
 import { createRouter, createWebHashHistory } from "vue-router";
@@ -20,9 +20,9 @@ const routes = [
     component: Inventory,
   },
   {
-    path: "/inventory/addition",
-    name: "inventoryAddition",
-    component: InventoryTaskAddition,
+    path: "/inventory/goodsAddition",
+    name: "inventoryGoodsAddition",
+    component: InventoryGoodsAddition,
   },
   {
     path: "/inventory/list",

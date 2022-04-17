@@ -9,7 +9,7 @@ export function useToolActions() {
       name: "addto",
       icon: "addto",
       fn() {
-        router.push("/inventory/addition");
+        router.push("/inventory/goodsAddition");
       },
     },
     {

@@ -9,6 +9,14 @@ export default defineConfig({
     jsxFragment: "Fragment",
     jsxInject: "import { h } from 'vue';",
   },
+  server: {
+    proxy: {
+      "/api": {
+        target: "http://localhost:8080",
+        changeOrigin: true,
+      },
+    },
+  },
   build: {
     rollupOptions: {
       input: {

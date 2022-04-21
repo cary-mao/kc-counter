@@ -1,5 +1,8 @@
-import { ref } from "vue";
+import { ref, defineAsyncComponent } from "vue";
 import { useRouter } from "vue-router";
+import { Dialog } from "vant";
+
+export const filterDialog = defineAsyncComponent(() => {});
 
 export function useToolActions() {
   const router = useRouter();
@@ -35,6 +38,7 @@ export function useToolActions() {
     {
       name: "filter",
       icon: "shaixuan_o",
+      fn() {},
     },
     {
       name: "search",

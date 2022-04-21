@@ -13,25 +13,20 @@
         <Field placeholder="查找商品" className="field" />
         <Button icon="plus" size="small" type="primary" square>添加</Button>
       </van-row> -->
-    <transition name="van-slide-down"
-      ><div
-        class="van-tabbar__placeholder"
-        style="height: 40px"
-        v-show="toolShow"
-      >
-        <div class="van-nav-bar van-nav-bar--fixed" style="top: unset">
-          <div class="van-nav-bar__content" style="overflow: auto">
-            <van-icon
-              :name="toolAction.icon"
-              :class-prefix="toolAction.classPrefix || 'iconfont'"
-              class="tool-icon"
-              v-for="toolAction in toolActions"
-              :key="toolAction.name"
-              @click="toolAction.fn"
-            ></van-icon>
-          </div>
-        </div></div
-    ></transition>
+    <transition name="van-slide-down">
+      <ToolBar :contentStyle="'overflow: auto'" v-show="toolShow">
+        <van-icon
+          :name="toolAction.icon"
+          :class-prefix="toolAction.classPrefix || 'iconfont'"
+          class="tool-icon"
+          v-for="toolAction in toolActions"
+          :key="toolAction.name"
+          @click="toolAction.fn"
+        ></van-icon>
+      </ToolBar>
+    </transition>
+
+    <ToolBar>12346</ToolBar>
 
     <van-row class="main">
       <List style="width: 100%">
@@ -102,6 +97,7 @@ import { ref, unref } from "vue";
 import { useRouter } from "vue-router";
 import { useToolActions } from "./useTools";
 import { useMoreActions, useMoreMenuSelectHandle } from "./useMoreMenu";
+import ToolBar from "./ToolBar.vue";
 import cache from "../../data/cache";
 
 const moreActions = useMoreActions();

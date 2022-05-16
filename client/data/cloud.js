@@ -68,7 +68,7 @@ export function request(config) {
       (err) => {
         const {
           status,
-          data: { code },
+          code
         } = err;
 
         // status process

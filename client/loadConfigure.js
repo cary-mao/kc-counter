@@ -1,9 +1,24 @@
 import useConfigureStore from "./data/stores/configure";
 import { getConfigure } from "./models/configure";
+import Darkmode from 'darkmode-js'
+import cache from './data/cache'
 
-async function load() {
+cache.darkMode = new Darkmode()
+
+function load() {
   const store = useConfigureStore();
-  getConfigure().then((configure) => store.registerConfigure(configure));
+  return new Promise((resolve, reject) => {
+    getConfigure().then((configure) => {
+      console.log('register')
+      store.registerConfigure(configure).then(() => {
+        if (configure.mode === 'dark') {
+          cache.darkMode.showWidget()
+        }
+        resolve()
+      })
+
+    });
+  })
 }
 
 export default load;

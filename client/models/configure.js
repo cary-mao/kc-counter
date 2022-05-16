@@ -7,6 +7,6 @@ export function getConfigure() {
   return configure
     ? Promise.resolve(configure)
     : request({
-        url: "api/configure",
-      }).then((res) => res.data.data);
+      url: "api/configure",
+    }).then((data) => data);
 }

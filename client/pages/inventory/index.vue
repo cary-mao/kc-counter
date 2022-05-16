@@ -26,7 +26,7 @@
       </ToolBar>
     </transition>
 
-    <ToolBar>12346</ToolBar>
+    <ToolFilterBar></ToolFilterBar>
 
     <van-row class="main">
       <List style="width: 100%">
@@ -97,6 +97,7 @@ import { ref, unref } from "vue";
 import { useRouter } from "vue-router";
 import { useToolActions } from "./useTools";
 import { useMoreActions, useMoreMenuSelectHandle } from "./useMoreMenu";
+import ToolFilterBar from "./ToolFilterBar.vue";
 import ToolBar from "./ToolBar.vue";
 import cache from "../../data/cache";
 

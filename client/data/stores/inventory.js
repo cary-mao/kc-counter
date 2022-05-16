@@ -1,13 +1,18 @@
 import { defineStore } from "pinia";
 
-const useConfigureStore = defineStore("inventory", {
+const useInventoryStore = defineStore("inventory", {
   state: () => {
     return {
       curInventoryListId: null,
       inventoryListMap: new Map(),
+      inventoryLists: [],
+      displayedItems: [],
     };
   },
   actions: {
+    setInventoryLists(lists) {
+      this.inventoryLists = lists;
+    },
     setCurInventoryList(id, items = []) {
       this.curInventoryListId = id;
       if (!this.inventoryListMap.has(id)) {
@@ -17,4 +22,4 @@ const useConfigureStore = defineStore("inventory", {
   },
 });
 
-export default useConfigureStore;
+export default useInventoryStore;

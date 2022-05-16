@@ -1,8 +1,7 @@
-import { ref, defineAsyncComponent } from "vue";
+import { ref } from "vue";
 import { useRouter } from "vue-router";
-import { Dialog } from "vant";
 
-export const filterDialog = defineAsyncComponent(() => {});
+export const filterBarShow = ref(false);
 
 export function useToolActions() {
   const router = useRouter();
@@ -38,7 +37,10 @@ export function useToolActions() {
     {
       name: "filter",
       icon: "shaixuan_o",
-      fn() {},
+      fn() {
+        filterBarShow.value = !filterBarShow.value;
+        console.log(filterBarShow.value);
+      },
     },
     {
       name: "search",

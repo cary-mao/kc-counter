@@ -27,7 +27,7 @@ export function makeServer() {
               autoSave: true,
               illedgeSaveMode: "draft",
               cloudSave: false,
-              style: "light",
+              style: "dark",
             },
           }
         );
@@ -46,7 +46,7 @@ export function makeServer() {
           }
         );
       });
-      this.get("/search/history", () => {});
+      this.get("/search/history", () => { });
       this.post("/login", login);
       this.post("/logout", logout);
     },

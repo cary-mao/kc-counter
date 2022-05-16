@@ -5,7 +5,7 @@ const useConfigureStore = defineStore("configure", {
     return {};
   },
   actions: {
-    registerConfigure(configure) {
+    async registerConfigure(configure) {
       // must call $patch, replace directly is not work.
       this.$append(configure);
     },

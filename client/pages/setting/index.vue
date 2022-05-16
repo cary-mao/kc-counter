@@ -26,37 +26,21 @@
           <Switch v-model="cloudSave" />
         </Cell>
       </CellGroup>
-      <CellGroup class="cell-group"
-        ><Cell
-          title="样式选择"
-          @click="togglePopup(true, 'stylePicking')"
-          center
-          size="large"
-        >
+      <CellGroup class="cell-group">
+        <Cell title="样式选择" @click="togglePopup(true, 'stylePicking')" center size="large">
           <template #value>
             <span>{{ styles[style] }}</span>
           </template>
         </Cell>
       </CellGroup>
       <CellGroup class="cell-group">
-        <Cell
-          title="退出"
-          size="large"
-          center
-          clickable
-          @click="handleLogoutClick"
-          style="text-align: center"
-        ></Cell>
+        <Cell title="退出" size="large" center clickable @click="handleLogoutClick" style="text-align: center"></Cell>
       </CellGroup>
     </div>
-    <Popup v-model:show="popupShow" position="bottom"
-      ><Picker
-        :title="targetPicker.title.value"
-        :columns="targetPicker.columns.value"
-        :default-index="targetPicker.index.value"
-        @cancel="togglePopup(false)"
-        @confirm="targetPicker.handleConfirm"
-    /></Popup>
+    <Popup v-model:show="popupShow" position="bottom">
+      <Picker :title="targetPicker.title.value" :columns="targetPicker.columns.value"
+        :default-index="targetPicker.index.value" @cancel="togglePopup(false)" @confirm="targetPicker.handleConfirm" />
+    </Popup>
   </div>
 </template>
 
@@ -71,6 +55,7 @@ import TargetPicker from "./picker";
 import TitleBar from "../../components/TitleBar.vue";
 import { logout } from "../../models/user";
 import caches from "../../data/cache";
+import cache from "../../data/cache";
 const store = useConfigureStore();
 const { autoSave, cloudSave, illedgeSaveMode, style } = toRefs(store.$state);
 const router = useRouter();
@@ -89,7 +74,7 @@ let dataChanged = false;
 // let stylePickingList = ref(["light", "night"]);
 let styles = {
   light: "日间模式",
-  night: "夜间模式",
+  dark: "夜间模式",
 };
 
 let logoutList = {
@@ -122,6 +107,13 @@ const targetPicker = new TargetPicker(pickerTarget, {
     picked: style,
     options: styles,
     title: "样式选择",
+    onConfirm() {
+      const picked = this.getDescriptor(this.target.value).picked
+      const isDark = picked.value === 'dark'
+      if (isDark ^ cache.darkMode.isActivated()) {
+        cache.darkMode.toggle()
+      }
+    }
   },
 });
 
@@ -129,6 +121,9 @@ targetPicker.afterConfirm = function (value) {
   const target = this.target.value;
   const descriptor = this.getDescriptor(target);
   descriptor.picked.value = this.getKeyFromValue(target, value);
+  if (descriptor.onConfirm) {
+    descriptor.onConfirm.call(this, value)
+  }
   togglePopup(false);
 };
 
@@ -149,7 +144,7 @@ function handleLogoutClick() {
     .then(() => {
       return logout();
     })
-    .catch(() => {})
+    .catch(() => { })
     .finally(() => {
       Toast.success("退出成功");
     });

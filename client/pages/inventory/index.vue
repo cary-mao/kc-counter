@@ -1,28 +1,15 @@
 <template>
   <div class="page">
-    <TitleBar
-      title="库存清点"
-      :hasBackArrow="true"
-      :moreActions="moreActions"
-      :morePopover="true"
-      @filter="handleFilter"
-      @moreSelect="handleMoreSelect"
-      @back="handleBack"
-    />
+    <TitleBar title="库存清点" :hasBackArrow="true" :moreActions="moreActions" :morePopover="true" @filter="handleFilter"
+      @moreSelect="handleMoreSelect" @back="handleBack" />
     <!-- <van-row class="header">
         <Field placeholder="查找商品" className="field" />
         <Button icon="plus" size="small" type="primary" square>添加</Button>
       </van-row> -->
     <transition name="van-slide-down">
       <ToolBar :contentStyle="'overflow: auto'" v-show="toolShow">
-        <van-icon
-          :name="toolAction.icon"
-          :class-prefix="toolAction.classPrefix || 'iconfont'"
-          class="tool-icon"
-          v-for="toolAction in toolActions"
-          :key="toolAction.name"
-          @click="toolAction.fn"
-        ></van-icon>
+        <van-icon :name="toolAction.icon" :class-prefix="toolAction.classPrefix || 'iconfont'" class="tool-icon"
+          v-for="toolAction in toolActions" :key="toolAction.name" @click="toolAction.fn"></van-icon>
       </ToolBar>
     </transition>
 
@@ -34,47 +21,21 @@
           <div class="item">
             <span>{{ item.name }}</span>
             <div class="count-box">
-              <Stepper
-                v-model="item.count"
-                integer
-                min="0"
-                :disabled="item.lock"
-              />
+              <Stepper v-model="item.count" integer min="0" :disabled="item.lock" />
             </div>
           </div>
           <template #right>
-            <Button
-              square
-              type="danger"
-              text="删除"
-              :disabled="item.lock"
-              @click="handleItemDelete(index)"
-            />
-            <Button
-              square
-              type="primary"
-              :text="item.lock ? '重数' : '确定'"
-              @click="handleItemCertain(index, item)"
-            />
+            <Button square type="danger" text="删除" :disabled="item.lock" @click="handleItemDelete(index)" />
+            <Button square type="primary" :text="item.lock ? '重数' : '确定'" @click="handleItemCertain(index, item)" />
           </template>
         </SwipeCell>
       </List>
     </van-row>
-    <VanDialog
-      v-model:show="deleteConfirmDialogShow"
-      title="删除任务"
-      show-cancel-button
-      @cancel="handleDeleteCancel"
-      @confirm="handleDeleteConfirm"
-    >
+    <VanDialog v-model:show="deleteConfirmDialogShow" title="删除任务" show-cancel-button @cancel="handleDeleteCancel"
+      @confirm="handleDeleteConfirm">
       <div class="van-dialog__message van-dialog__message--has-title">
         <p>任务删除后无法恢复，是否确认删除？</p>
-        <Checkbox
-          v-model="noDeleteConfirm"
-          shape="square"
-          style="margin-left: 1.1rem"
-          >本次使用不再提示</Checkbox
-        >
+        <Checkbox v-model="noDeleteConfirm" shape="square" style="margin-left: 1.1rem">本次使用不再提示</Checkbox>
       </div>
     </VanDialog>
   </div>
@@ -138,6 +99,7 @@ const noDeleteConfirm = ref(false);
 const deleteConfirmDialogShow = ref(false);
 
 function handleDeleteCancel() {
+  noDeleteConfirm.value = false
   deleteConfirmDialogShow.value = false;
 }
 

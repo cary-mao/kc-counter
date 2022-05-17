@@ -1,11 +1,11 @@
 <template>
     <Field placeholder="请输入物品名称" v-model="inputText" @update:model-value="handleChange" />
     <Cell>
-        <Button size="mini" @click="handleSelectAll">全选</Button>
-        <Button size="mini" @click="handleSelectReverse">反选</Button>
-        <Button size="mini" @click="handleCertain">确定</Button>
+        <Button size="small" type="primary" @click="handleSelectAll" class="button">全选</Button>
+        <Button size="small" type="primary" hairline plain @click="handleSelectReverse" class="button">反选</Button>
+        <Button size="small" type="success" @click="handleCertain" class="button">确定</Button>
     </Cell>
-    <CheckboxGroup v-model="checked">
+    <CheckboxGroup v-model="checked" class="checkbox-group">
         <Checkbox class="checkbox" v-for="option in options" :key="option.value"
             @click="emit('itemClick', unref(option))" :name="option.value" shape="square">{{ option.text }}</Checkbox>
     </CheckboxGroup>
@@ -24,8 +24,11 @@ const props = defineProps({
         type: Array,
         default: () => []
     },
+    listMaxHeight: String
 })
 defineEmits(['itemClick', 'certain'])
+
+console.log(props.listMaxHeight)
 
 const inputText = ref('')
 const options = ref(props.options)
@@ -63,11 +66,18 @@ function handleCertain() {
 
 <style lang="stylus" scoped>
 .checkbox {
-    margin: 0 0 8px 16px;
+    padding: 0 0 8px 16px;
 
     ::v-deep(.van-icon) {
         color: var(--van-white);
     }
-}
 
+    &-group {
+        overflow-y: auto;
+        max-height: v-bind(listMaxHeight);
+    }
+}
+.button + .button {
+    margin-left: 8px;
+}
 </style>

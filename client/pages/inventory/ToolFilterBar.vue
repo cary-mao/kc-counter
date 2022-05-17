@@ -1,9 +1,9 @@
 <template>
   <transition name="van-slide-down">
-    <ToolBar v-show="filterBarShow">
+    <ToolBar v-show="filterBarShow" class="toolbar">
       <DropdownMenu>
-        <DropdownItem v-model="value1" title="物品" ref="nameDropdownItem">
-          <FilterListInput :options="result" @certain="handleFilteredNameCertain" />
+        <DropdownItem v-model="value1" title="物品" ref="nameDropdownItem" class="nomaxheight-dropdown">
+          <FilterListInput :options="result" @certain="handleFilteredNameCertain" list-max-height="50vh" />
         </DropdownItem>
         <DropdownItem v-model="value2" :options="option2" />
       </DropdownMenu>
@@ -22,52 +22,9 @@ const value1 = ref(0);
 const value2 = ref("a");
 const text = ref('');
 const nameDropdownItem = ref(null)
-const result = ref([
-  { text: "item1", value: 0 },
-  { text: "item3", value: 1 },
-  { text: "item5", value: 2 },
-  { text: "item1", value: 0 },
-  { text: "item3", value: 1 },
-  { text: "item5", value: 2 },
-  { text: "item1", value: 0 },
-  { text: "item3", value: 1 },
-  { text: "item5", value: 2 },
-  { text: "item1", value: 0 },
-  { text: "item3", value: 1 },
-  { text: "item5", value: 2 },
-  { text: "item1", value: 0 },
-  { text: "item3", value: 1 },
-  { text: "item5", value: 2 },
-  { text: "item1", value: 0 },
-  { text: "item3", value: 1 },
-  { text: "item5", value: 2 },
-  { text: "item1", value: 0 },
-  { text: "item3", value: 1 },
-  { text: "item5", value: 2 },
-  { text: "item1", value: 0 },
-  { text: "item3", value: 1 },
-  { text: "item5", value: 2 },
-  { text: "item1", value: 0 },
-  { text: "item3", value: 1 },
-  { text: "item5", value: 2 },
-
-  { text: "item1", value: 0 },
-  { text: "item3", value: 1 },
-  { text: "item5", value: 2 },
-  { text: "item1", value: 0 },
-  { text: "item3", value: 1 },
-  { text: "item5", value: 2 },
-  { text: "item1", value: 0 },
-  { text: "item3", value: 1 },
-  { text: "item5", value: 2 },
-  { text: "item1", value: 0 },
-  { text: "item3", value: 1 },
-  { text: "item5", value: 2 },
-  { text: "item1", value: 0 },
-  { text: "item3", value: 1 },
-  { text: "item5", value: 2 },
-
-])
+const result = ref(Array.from(new Array(20)).map((item, idx) => {
+  return { text: `item${idx}`, value: idx }
+}))
 const option1 = ref(result.value);
 const option2 = [
   { text: "默认排序", value: "a" },
@@ -80,5 +37,11 @@ function handleFilteredNameCertain(items) {
 }
 </script>
 
-<style>
+<style lang="stylus" scoped>
+.toolbar .van-dropdown-menu {
+  width: 100%;
+}
+.nomaxheight-dropdown ::v-deep(.van-dropdown-item__content) {
+  max-height: unset;
+}
 </style>
